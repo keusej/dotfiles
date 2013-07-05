@@ -3,3 +3,5 @@
 	email = jordan@woelfware.com
 [color]
 	ui = true
+[push]
+	default = simple
