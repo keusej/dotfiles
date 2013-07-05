@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/jkeusema/xilinx_workspace/DPSS/source'
+let g:netrw_dirhist_2='/home/jkeusema/xilinx_workspace/DPSS/source/ucf'
+let g:netrw_dirhist_3='/home/jkeusema/xilinx_workspace/DPSS/source'
+let g:netrw_dirhist_4='/home/jkeusema/xilinx_workspace/DPSS/source/pblaze_code'
+let g:netrw_dirhist_5='/home/jkeusema/xilinx_workspace/DPSS/source/pblaze_code/fan'
+let g:netrw_dirhist_6='/home/jkeusema/xilinx_workspace/DPSS/source/pblaze_code'
+let g:netrw_dirhist_7='/home/jkeusema/xilinx_workspace/DPSS/source'
