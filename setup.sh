@@ -15,3 +15,6 @@ ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.vimrc .
 ln -sb dotfiles/.gvimrc .
 ln -sb dotfiles/.vim .
+
+#useful tools to install
+sudo yum install ack

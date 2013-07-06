@@ -191,3 +191,4 @@ let perl_extended_vars = 1    "highlight complex expressions such as @{[$x, $y]}
 let perl_sync_dist     = 250  "use more context for highlighting"
 
 set autoindent   "Always set auto-indenting on"
+execute pathogen#infect()
