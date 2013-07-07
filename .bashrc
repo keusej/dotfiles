@@ -10,4 +10,4 @@ PS1="\[\033[0;34m\][$(date +%H:%M)] \[\033[0;32m\]\u\[\033[0;36m\]@\[\033[0;32m\
 
 alias dsa='du -d1|sort -h'
 alias ds="du -kh -d1 | sort -n | cut -f2 | xargs -d '\n' du -sh"
-
+alias zino="sudo mount -t cifs //zino/usbdrive/ /mnt/zino-usbdrive -o username=keusej"
