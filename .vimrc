@@ -116,6 +116,7 @@ map <F4> :TlistToggle<cr>
 "let Tlist_Exist_OnlyWindow = 1 " if you are the last, kill yourself
 "let Tlist_File_Fold_Auto_Close = 0 " Do not close tags for other files
 "let Tlist_Enable_Fold_Column = 0 " Do not show folding tree
+map <F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Minibuf
@@ -153,7 +154,6 @@ endfunction
 "map <F12> ggVGg? " encypt the file (toggle)
 "map <F11> :TlistToggle<CR>
 "map <F12> :Project $VIM/vimfiles/vimprojects.txt"<CR>
-"map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
