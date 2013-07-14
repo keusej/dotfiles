@@ -20,6 +20,11 @@ set isk+=_,$,@,%,# " none of these should be word dividers, so make them not be
 set autoread " automatically reloads files externally modified
 set lpl
 set autochdir " set working directory to location of open file
+" make it so searches are more like perl regex
+noremap / /\v
+vnoremap / /\v
+" save when window loses focus
+au FocusLost * :wa
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme/Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -42,6 +47,7 @@ set wildmenu " turn on wild menu
 set ruler " Always show current positions along the bottom 
 set cmdheight=2 " the command bar is 2 high
 set number " turn on line numbers
+set relativenumber " show relative line numbers instead of absolute
 set lz " do not redraw while running macros (much faster) (LazyRedraw)
 set hid " you can change buffer without saving
 set backspace=2 " make backspace work normal
@@ -52,7 +58,31 @@ set report=0 " tell us when anything is changed via :...
 set noerrorbells " don't make noise
 " make the splitters between windows be blank
 set fillchars=vert:\ ,stl:\ ,stlnc:\
-
+"settings for rainbow paranthesis
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Cues
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -77,13 +107,13 @@ set fo=tcrqn " See Help (complex)
 set ai " autoindent
 """"set si " smartindent 
 set cindent " do c-style indenting
-"set tabstop=8 " tab spacing (settings below are just to unify it)
-"set softtabstop=8 " unify
-"set shiftwidth=8 " unify 
-"set noexpandtab " real tabs please!
-"set expandtab
+set tabstop=8 " tab spacing (settings below are just to unify it)
+set softtabstop=8 " unify
+set shiftwidth=8 " unify 
+set expandtab
+"set noexpandtab 
 set nowrap " do not wrap lines  
-set smarttab " use tabs at the start of a line, spaces elsewhere
+"set smarttab " use tabs at the start of a line, spaces elsewhere
 " normally don't automatically format `text' as it is typed, IE only do this
 " with comments, at 79 characters:
 set formatoptions-=t
@@ -167,11 +197,14 @@ iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 " Custom functions
 " """""""""""""""""""""""""""
 filetype indent on
+set showmode
+set showcmd
+set hidden
 
 """""""" BASH-plugin
 let g:BASH_AuthorName = 'Jordan Keuseman'
-let g:BASH_Email = 'jkeusema@us.ibm.com'
-let g:BASH_Company = 'IBM'
+let g:BASH_Email = 'j.keuseman@gmail.com'
+let g:BASH_Company = 'Company'
 
 """ Perl settings
 "Create a command :Tidy to invoke perltidy"
@@ -192,3 +225,12 @@ let perl_sync_dist     = 250  "use more context for highlighting"
 
 set autoindent   "Always set auto-indenting on"
 execute pathogen#infect()
+
+" Just for learning
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+" make moving by screen line default instead of file line
+nnoremap j gj
+nnoremap k gk
