@@ -19,7 +19,6 @@ set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,# " none of these should be word dividers, so make them not be
 set autoread " automatically reloads files externally modified
 set lpl
-set autochdir " set working directory to location of open file
 " make it so searches are more like perl regex
 noremap / /\v
 vnoremap / /\v
@@ -107,21 +106,18 @@ set fo=tcrqn " See Help (complex)
 set ai " autoindent
 """"set si " smartindent 
 set cindent " do c-style indenting
-set tabstop=8 " tab spacing (settings below are just to unify it)
-set softtabstop=8 " unify
-set shiftwidth=8 " unify 
+set tabstop=4 " tab spacing (settings below are just to unify it)
+set softtabstop=4 " unify
+set shiftwidth=4 " unify 
 set expandtab
 "set noexpandtab 
-set nowrap " do not wrap lines  
+"set nowrap " do not wrap lines  
+set wrap " wrap lines  
 "set smarttab " use tabs at the start of a line, spaces elsewhere
 " normally don't automatically format `text' as it is typed, IE only do this
 " with comments, at 79 characters:
 set formatoptions-=t
 set textwidth=79
-" autocmd text formatting options for files
-autocmd FileType * set tabstop=8|set shiftwidth=8|set noexpandtab|set smarttab|set softtabstop=8
-autocmd FileType vhdl set tabstop=4|set shiftwidth=4|set expandtab|set smarttab|set softtabstop=4
-autocmd FileType psm set tabstop=4|set shiftwidth=4|set noexpandtab|set smarttab|set softtabstop=4
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File Explorer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -189,6 +185,10 @@ endfunction
 " Autocommands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
+" autocmd text formatting options for files
+"autocmd FileType * set tabstop=8|set shiftwidth=8|set noexpandtab|set smarttab|set softtabstop=8
+autocmd FileType vhdl set tabstop=4|set shiftwidth=4|set expandtab|set smarttab|set softtabstop=4
+autocmd FileType psm set tabstop=4|set shiftwidth=4|set noexpandtab|set smarttab|set softtabstop=4
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Useful abbrevs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -200,6 +200,7 @@ filetype indent on
 set showmode
 set showcmd
 set hidden
+nmap <leader>nt :NERDTree<cr>
 
 """""""" BASH-plugin
 let g:BASH_AuthorName = 'Jordan Keuseman'
@@ -225,6 +226,20 @@ let perl_sync_dist     = 250  "use more context for highlighting"
 
 set autoindent   "Always set auto-indenting on"
 execute pathogen#infect()
+
+"search for the current section instead of just word
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+
+function! s:VSetSearch()
+	let temp = @s
+	norm! gv"sy
+	let @/ = '\V' . substitute(escape(@s, '/l'), '\n', '\\n', 'g')
+	let @s = temp
+endfunction
+
+"mute highlighting shortcut
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
 " Just for learning
 nnoremap <up> <nop>
