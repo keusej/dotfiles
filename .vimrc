@@ -19,6 +19,7 @@ set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,# " none of these should be word dividers, so make them not be
 set autoread " automatically reloads files externally modified
 set lpl
+set autochdir
 " make it so searches are more like perl regex
 noremap / /\v
 vnoremap / /\v
