@@ -3,6 +3,7 @@
 
 sudo yum groupinstall \"development\"
 sudo yum groupinstall \"development-tools\"
+sudo yum install vim-X11
 
 #useful tools to install
 sudo yum install ack
