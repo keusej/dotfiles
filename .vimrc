@@ -1,10 +1,18 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Stuff I have decided I don't like
+" Text Formatting/Layout
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set ignorecase -- turns out, I like case sensitivity 
-"set list " turns out, I don't like listchars -- show chars on end of line, whitespace, etc
-"autocmd GUIEnter * :simalt ~x -- having it auto maximize the screen is annoying
-"autocmd BufEnter * :lcd %:p:h -- switch to current dir (breaks some scripts)
+set fo=tcrqn " See Help (complex)
+set autoindent   "Always set auto-indenting on"
+set tabstop=4 " tab spacing (settings below are just to unify it)
+set softtabstop=4 " unify
+set shiftwidth=4 " unify 
+set expandtab
+"set nowrap " do not wrap lines  
+set wrap " wrap lines  
+" normally don't automatically format `text' as it is typed, IE only do this
+" with comments, at 79 characters:
+set formatoptions-=t
+set textwidth=79
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -15,33 +23,19 @@ set cf " enable error files and error jumping
 set clipboard=unnamed " turns out I do like is sharing windows clipboard
 set ffs=unix,dos,mac " support all three, in this order
 filetype plugin on " load filetype plugins
+filetype plugin indent on " load filetype plugins
 set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,# " none of these should be word dividers, so make them not be
 set autoread " automatically reloads files externally modified
 set lpl
-set autochdir
 " make it so searches are more like perl regex
 noremap / /\v
 vnoremap / /\v
-" save when window loses focus
-au FocusLost * :wa
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Theme/Colors
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax on " syntax highlighting on
-au BufNewFile,BufRead *.psm set filetype=asm
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Files/Backups
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set backup " make backup file
-"set backupdir=$VIM\vimfiles\backup " where to put backup file
-"set directory=$VIM\vimfiles\temp " directory is the directory for temp file
-"set makeef=error.err " When using make, where should it dump the file
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on " syntax highlighting on
 set lsp=0 " space it out a little more (easier to read)
 set wildmenu " turn on wild menu
 set ruler " Always show current positions along the bottom 
@@ -101,28 +95,9 @@ set ignorecase
 set smartcase
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Text Formatting/Layout
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set fo=tcrqn " See Help (complex)
-set ai " autoindent
-""""set si " smartindent 
-set cindent " do c-style indenting
-set tabstop=4 " tab spacing (settings below are just to unify it)
-set softtabstop=4 " unify
-set shiftwidth=4 " unify 
-set expandtab
-"set noexpandtab 
-"set nowrap " do not wrap lines  
-set wrap " wrap lines  
-"set smarttab " use tabs at the start of a line, spaces elsewhere
-" normally don't automatically format `text' as it is typed, IE only do this
-" with comments, at 79 characters:
-set formatoptions-=t
-set textwidth=79
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File Explorer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:explVertical=1 " should I split verticially
+let g:explVertical=1 " should I split vertically
 let g:explWinSize=35 " width of 35 pixels
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -157,32 +132,6 @@ let g:miniBufExplModSelTarget = 1
 let b:match_ignorecase = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Perl
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let perl_extended_vars = 1 " highlight advanced perl vars inside strings
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom Functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Select range, then hit :SuperRetab($width) - by p0g and FallingCow
-function! SuperRetab(width) range
-silent! exe a:firstline . ',' . a:lastline . 's/\v%(^ *)@<= {'. a:width .'}/\t/g'
-endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"map <right> <ESC>:MBEbn<RETURN> " right arrow (normal mode) switches buffers  (excluding minibuf)
-"map <left> <ESC>:MBEbp<RETURN> " left arrow (normal mode) switches buffers (excluding minibuf) 
-"map <up> <ESC>:Sex<RETURN><ESC><C-W><C-W> " up arrow (normal mode) brings up a file list
-"map <down> <ESC>:Tlist<RETURN> " down arrow  (normal mode) brings up the tag list
-"map <A-i> i <ESC>r " alt-i (normal mode) inserts a single char, and then switches back to normal
-"map <F2> <ESC>ggVG:call SuperRetab()<left>
-"map <F12> ggVGg? " encypt the file (toggle)
-"map <F11> :TlistToggle<CR>
-"map <F12> :Project $VIM/vimfiles/vimprojects.txt"<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
@@ -190,25 +139,21 @@ autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highli
 "autocmd FileType * set tabstop=8|set shiftwidth=8|set noexpandtab|set smarttab|set softtabstop=8
 autocmd FileType vhdl set tabstop=4|set shiftwidth=4|set expandtab|set smarttab|set softtabstop=4
 autocmd FileType psm set tabstop=4|set shiftwidth=4|set noexpandtab|set smarttab|set softtabstop=4
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Useful abbrevs
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
-"""""""""""""""""""""""""""""
-" Custom functions
-" """""""""""""""""""""""""""
-filetype indent on
-set showmode
-set showcmd
-set hidden
-nmap <leader>nt :NERDTree<cr>
+au BufNewFile,BufRead *.psm set filetype=asm
+" save when window loses focus
+au FocusLost * :wa
 
-"""""""" BASH-plugin
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Bash 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:BASH_AuthorName = 'Jordan Keuseman'
 let g:BASH_Email = 'j.keuseman@gmail.com'
 let g:BASH_Company = 'Company'
 
-""" Perl settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Perl
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let perl_extended_vars = 1 " highlight advanced perl vars inside strings
 "Create a command :Tidy to invoke perltidy"
 "By default it operates on the whole file, but you can give it a"
 "range or visual range as well if you know what you're doing."
@@ -225,8 +170,16 @@ let perl_include_pod   = 1    "include pod.vim syntax file with perl.vim"
 let perl_extended_vars = 1    "highlight complex expressions such as @{[$x, $y]}"
 let perl_sync_dist     = 250  "use more context for highlighting"
 
-set autoindent   "Always set auto-indenting on"
 execute pathogen#infect()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""
+" Custom functions
+"""""""""""""""""""""""""""""
+set showmode
+set showcmd
+set hidden
+nmap <leader>nt :NERDTree<cr>
 
 "search for the current section instead of just word
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
