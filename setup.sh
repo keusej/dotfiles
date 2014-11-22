@@ -28,3 +28,4 @@ git clone https://github.com/tpope/vim-sensible.git .vim/bundle/vim-sensible
 git clone git://github.com/altercation/vim-colors-solarized.git .vim/bundle/solarized
 git clone https://github.com/kien/rainbow_parentheses.vim.git .vim/bundle/rainbow_parenthesis.vim
 git clone https://github.com/scrooloose/nerdtree.git .vim/bundle/nerdtree
+git clone https://github.com/bling/vim-airline .vim/bundle/vim-airline
